@@ -7,7 +7,7 @@
   <link rel="shortcut icon" th:href="@{/images/logo.ico}" type="image/x-icon">
 </head>
 <body>
-<h3>Регистрация</h3>
+
 <header class="bg-dark text-white">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <div style = "text-align: center" class ="d-flex justify-content-start"> <h3 >Интеренет-магазин <br>ПОДАРКОВ</h3>
@@ -32,17 +32,28 @@
   </div>
 </header>
 <div class="container-xxl content-center">
-
+  <h3>Регистрация</h3>
+<br>
+<br>
+<br>
 <form method="post" th:action="@{/auth/registration}" th:object="${person}">
-  <label for="login">Введите логин: </label>
+  <div class="row mb-3">
+  <label class="col-sm-2 col-form-label" for="login">Введите логин: </label>
+    <div class="col-sm-10">
   <input type="text"  th:field="*{login}" placeholder="Введите пароль" name="username" id="login">
+    </div>
   <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-  <br>
-  <label for="password">Введите пароль: </label>
-  <input type="password" th:field="*{password}" placeholder="Введите пароль" name="password" id="password">
+
+  </div>
+  <div class="row mb-3">
+  <label class="col-sm-2 col-form-label" for="password">Введите пароль: </label>
+        <div class="col-sm-10">
+          <input type="password" th:field="*{password}" placeholder="Введите пароль" name="password" id="password">
+        </div>
   <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+  </div>
   <br>
-  <input type="submit" value="Зарегистрироваться">
+  <input type="submit" value="Зарегистрироваться" class = "btn btn-primary">
 </form>
 
 </div>

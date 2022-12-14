@@ -49,10 +49,10 @@ public class AuthController {
             return "login";
         }
 
-    @PostMapping("/search_main")
-    public String mainSearch(@RequestParam("search") String search, @RequestParam("ot") String ot, @RequestParam("do") String Do, @RequestParam(value = "price", required = false, defaultValue = "") String price, @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model) {
+    @PostMapping("/login/search_main")
+    public String mainSearch(@RequestParam("search") String search, @RequestParam("ot") String from, @RequestParam("do") String to, @RequestParam(value = "price", required = false, defaultValue = "") String price, @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model) {
     System.out.println("Поиск у гостя");
-    if (!ot.isEmpty() & !Do.isEmpty()) {
+    if (!from.isEmpty() & !to.isEmpty()) {
         // Если сортировка по цене выбрана
         if (!price.isEmpty()) {
             // Если в качестве сортировки выбрана сортировка по возрастанию
@@ -61,48 +61,69 @@ public class AuthController {
                 if (!category.isEmpty()) {
                     // Если категория равная мебели
                     if (category.equals("furniture")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
-                        // Если категория равная бытовой техники
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 1));
+                        // Если категория равна бытовой технике
                     } else if (category.equals("appliances")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
-                        // Если категория равная одежде
-                    } else if (category.equals("clothes")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 2));
+
+                    }else if (category.equals("clothes")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 3));
+
+                    }else if (category.equals("food")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 4));
+                    }else if (category.equals("cosmetics")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 5));
+                    }else if (category.equals("package")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 6));
+                    }else if (category.equals("decor")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 7));
+                    }else if (category.equals("electronics")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 8));
+                    }else if (category.equals("dishes")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 9));
+                        // Если категория не выбрана
                     }
-                    // Если категория не выбрана
                 } else {
-                    model.addAttribute("search_product", productRepository.findByTitleOrderByPrice(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
+                    model.addAttribute("search_product", productRepository.findByTitleOrderByPrice(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to)));
                 }
-
-                // Если в качестве сортировки выбрана сортировкам по убыванию
+                // Если в качестве сортировки выбрана сортировка по убыванию
             } else if (price.equals("sorted_by_descending_price")) {
-
-                // Если категория не пустая
                 if (!category.isEmpty()) {
-                    // Если категория равная мебели
                     if (category.equals("furniture")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
-                        // Если категория равная бытовой техники
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 1));
                     } else if (category.equals("appliances")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
-                        // Если категория равная одежде
-                    } else if (category.equals("clothes")) {
-                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 2));
+
+                    }else if (category.equals("clothes")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 3));
+                    }else if (category.equals("food")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 4));
+                    }else if (category.equals("cosmetics")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 5));
+                    }else if (category.equals("package")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 6));
+                    }else if (category.equals("decor")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 7));
+                    }else if (category.equals("electronics")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 8));
+                    }else if (category.equals("dishes")) {
+                        model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 9));
+
                     }
                     // Если категория не выбрана
                 } else {
-                    model.addAttribute("search_product", productRepository.findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
+                    model.addAttribute("search_product", productRepository.findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to)));
                 }
             }
         } else {
-            model.addAttribute("search_product", productRepository.findByTitleAndPriceGreaterThanEqualAndPriceLessThan(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
+            model.addAttribute("search_product", productRepository.findByTitleAndPriceGreaterThanEqualAndPriceLessThan(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to)));
         }
     } else {
         model.addAttribute("search_product", productRepository.findByTitleContainingIgnoreCase(search));
     }
     model.addAttribute("value_search", search);
-    model.addAttribute("value_price_ot", ot);
-    model.addAttribute("value_price_do", Do);
+    model.addAttribute("value_price_ot", from);
+    model.addAttribute("value_price_do", to);
     model.addAttribute("products", productService.getAllProduct());
     //return "main";
     return "login";

@@ -67,24 +67,24 @@
         <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
         <label for="descending_price">Отсортировать по убыванию цены</label>
         <p>Категория товаров: </p>
-        <input type="radio" id="furniture" name="category" value="furniture">
-        <label for="furniture">Мебель</label>
-        <br>
-        <br>
-        <input type="radio" id="appliances" name="category" value="appliances">
-        <label for=appliances>Бытовая техника</label>
-        <br>
-        <br>
-        <input type="radio" id="clothes" name="category" value="clothes">
-        <label for="clothes">Одежда</label>
-        <br>
-        <br>
+        <select name="category" >
+                <option value="furniture"> Мебель</option>
+                <option  value="appliances">Бытовая техника</option>
+                <option  value="clothes"> Мебель</option>
+                <option value="food">Продукты питания</option>
+                <option value="cosmetics">Косметика</option>
+                <option  value="package">Упаковка</option>
+                <option value="decor">Декор</option>
+                <option value="electronics"> Электроника</option>
+                <option value="dishes"> Посуда</option>
+        </select>
         <input type="submit" value="Найти">
     </fieldset>
 </form>
 
-
+<br>
 <h3>Результат: </h3>
+    <br>
     <div class="row row-cols-2 row-cols-md-5 g-5">
 <div class="col" th:each="product : ${search_product}">
     <div class="card">
@@ -97,7 +97,7 @@
 </div>
 </div>
 
-
+<br>
 <h3>Доступные товары: </h3>
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col"  th:each="product : ${products}">
