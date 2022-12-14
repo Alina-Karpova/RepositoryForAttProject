@@ -210,7 +210,7 @@ public class AdminController {
         }
 
         productService.saveProduct(product);
-        return "redirect:/admin";
+        return "redirect:/admin/product/edit/"+product.getId();
     }
 
 
@@ -243,7 +243,7 @@ public class AdminController {
     public String editProduct(@ModelAttribute("editProduct") Product product, @PathVariable("id") int id){
 
         productService.updateProduct(id, product);
-        return "redirect:/admin";
+        return "redirect:/admin/product/edit/"+product.getId();
     }
 
     // Метод по удалению пользователя по id
@@ -431,7 +431,8 @@ public class AdminController {
             int pictureId = image.getId();
             productService.updatePictures(pictureId, resultFileName);
         }
-        return "product/editPicture";
+        return "redirect:/admin/product/edit/"+product.getId();
+        //return "product/editPicture";
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.springsecurityapplication.enumm.Status;
 import com.example.springsecurityapplication.models.Cart;
 import com.example.springsecurityapplication.models.Order;
 import com.example.springsecurityapplication.models.Product;
+import com.example.springsecurityapplication.models.Role;
 import com.example.springsecurityapplication.repositories.CartRepository;
 import com.example.springsecurityapplication.repositories.OrderRepository;
 import com.example.springsecurityapplication.repositories.ProductRepository;
