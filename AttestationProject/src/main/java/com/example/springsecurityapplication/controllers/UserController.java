@@ -194,10 +194,13 @@ public class UserController {
         } else {
             model.addAttribute("search_product", productRepository.findByTitleContainingIgnoreCase(search));
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         model.addAttribute("value_search", search);
         model.addAttribute("value_price_ot", from);
         model.addAttribute("value_price_do", to);
         model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("login", personDetails.getPerson().getLogin());
         return "user/index";
 
     }

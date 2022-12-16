@@ -17,7 +17,7 @@
 
               <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                          <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
+                          <li><a href="/auth/login" class="nav-link px-2 text-secondary">Главная</a></li>
                           <li><a href="/product" class="nav-link px-2 text-white">Каталог</a></li>
                           <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
                     </ul>
@@ -71,8 +71,8 @@
 
 
 <details>
-    <summary>Поиск и фильтры</summary>
-
+    <summary><b>Поиск и фильтры</b></summary>
+    <div class = "container border rounded">
     <form th:method="POST" th:action="@{/auth/login/search_main}">
         <fieldset>
             <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
@@ -86,18 +86,17 @@
             <label for="do">До</label>
             <input type="text" name="do" id="do" th:value="*{value_price_do}">
             <br>
-            <br>
             <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
             <label for="ascending_price">Отсортировать по возрастанию цены</label>
-            <br>
             <br>
             <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
             <label for="descending_price">Отсортировать по убыванию цены</label>
             <p>Категория товаров: </p>
             <select name="category" >
+                <option value=""> -категория не выбрана-</option>
                 <option value="furniture"> Мебель</option>
                 <option  value="appliances">Бытовая техника</option>
-                <option  value="clothes"> Мебель</option>
+                <option  value="clothes">Одежда</option>
                 <option value="food">Продукты питания</option>
                 <option value="cosmetics">Косметика</option>
                 <option  value="package">Упаковка</option>
@@ -105,12 +104,12 @@
                 <option value="electronics"> Электроника</option>
                 <option value="dishes"> Посуда</option>
             </select>
-            <input type="submit" value="Найти">
+            <input type="submit" value="Найти" class = "btn btn-primary">
         </fieldset>
     </form>
-
+    </div>
 </details>
-    <h3>Результат поиска: </h3>
+    <h4>Результат поиска: </h4>
       <br>
 
       <div class="row row-cols-2 row-cols-md-5 g-5">

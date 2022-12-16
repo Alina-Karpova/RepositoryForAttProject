@@ -220,7 +220,7 @@ public class AdminController {
     @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id){
         productService.deleteProduct(id);
-        return "redirect:/admin";
+        return "redirect:/admin/product/add";
     }
 
     // Метод по получению товара по id и отображение шаблона редактирования
@@ -273,6 +273,8 @@ public class AdminController {
         model.addAttribute("value_search", search);
         return "admin/orders";
     }
+
+
     @GetMapping("/orders")
     public String ordersUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

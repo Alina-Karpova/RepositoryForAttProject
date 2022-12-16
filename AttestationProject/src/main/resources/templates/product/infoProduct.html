@@ -17,7 +17,7 @@
 
         <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="/auth/login"  class="nav-link px-2 text-secondary">Главная</a></li>
                 <li><a href="/product" class="nav-link px-2 text-white">Каталог</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
             </ul>
@@ -32,14 +32,17 @@
     </div>
 </header>
 <div class="container-xxl">
-    <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+    <p>Наименование:</p>
+    <h2 th:text="${product.getTitle()}"></h2>
     <p th:text="'Описание: ' + ${product.getDescription()}"></p>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p><span>Цена:</span><b><span th:text="' ' + ${product.getPrice()} + ' р.'"></span></b></p>
     <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
     <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
     <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
-    <div th:each="img : ${product.getImageList()}">
-        <img th:src="'/img/' + ${img.getFileName()}" width="200px" style = "float: left">
+    <div class="row">
+    <div th:each="img : ${product.getImageList()}" class="col">
+        <img th:src="'/img/' + ${img.getFileName()}" width="200px">
+    </div>
     </div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

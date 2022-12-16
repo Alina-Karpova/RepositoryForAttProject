@@ -17,7 +17,7 @@
 
         <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="/auth/login"  class="nav-link px-2 text-secondary">Главная</a></li>
                 <li><a href="/product" class="nav-link px-2 text-white">Каталог</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
             </ul>
@@ -35,55 +35,63 @@
 
 <a th:href="@{/admin}">&#9668;Вернуться в меню администратора</a><br>
 <details>
-    <summary><b>Добавление товара</b> </summary>
-
+    <summary><b class ="fs-20">Добавление товара</b> </summary>
+<div class = "mb-3 border rounded">
+    <div class ="w-75">
 <form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
-    <label for="title">Введите наименование: </label>
-    <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите наименование: </span>
+    <input type="text" th:field="*{title}" placeholder="Наименование" id="title" class="form-control">
     <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-    <br>
-    <br>
-    <label for="description">Введите описание: </label>
-    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите описание:</span>
+    <textarea th:field="*{description}" placeholder="Описание" id="description" class="form-control" ></textarea>
     <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-    <br>
-    <br>
-    <label for="price">Введите цену: </label>
-    <input type="number" th:field="*{price}" min="1" step="0.00" id="price">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите цену: </span>
+    <input type="number" th:field="*{price}" min="1" step="0.00" id="price" class="form-control">
     <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-    <br>
-    <br>
-    <label for="warehouse">Введите информацию о складе: </label>
-    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
+    </div>
+    <div class="input-group mb-3">
+
+        <span class="input-group-text">Введите информацию о складе:</span>
+    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse" class="form-control">
     <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
-    <br>
-    <br>
-    <label for="category">Выберите категорию товара: </label>
-    <select name="category" th:field="*{category}" id="category">
+    </div>
+
+    <div class="input-group mb-3">
+    <label for="category" class="input-group-text">Выберите категорию товара: </label>
+    <select name="category" th:field="*{category}" id="category" class="form-select">
         <div th:each="element : ${category}">
             <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
-<!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></optional>-->
+
         </div>
     </select>
-    <br>
-    <br>
-    <label for="seller">Введите данные о продавце: </label>
-    <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите данные о продавце: </span>
+    <textarea th:field="*{seller}" placeholder="Продавец" id="seller" class="form-control"></textarea>
     <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
-    <br>
-    <br>
+</div>
     <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой</p>
-    <input type="file" name="file_one">
-    <input type="file" name="file_two">
-    <input type="file" name="file_three">
-    <input type="file" name="file_four">
-    <input type="file" name="file_five">
-    <input type="submit" value="Добавить">
+    <input type="file" name="file_one" class="form-control" >
+    <input type="file" name="file_two" class="form-control">
+    <input type="file" name="file_three" class="form-control">
+    <input type="file" name="file_four" class="form-control">
+    <input type="file" name="file_five" class="form-control">
+
+    <input type="submit" value="Добавить" class = "btn btn-primary">
+
 </form>
+    </div>
+</div>
 <hr>
 </details>
 <details>
-    <summary><b> Посмотреть каталог товаров:</b></summary>
+    <summary><b class ="fs-20"> Посмотреть каталог товаров:</b></summary>
 
 <div class="row row-cols-1 row-cols-md-3 g-3">
     <div class="col" th:each="product : ${products}">

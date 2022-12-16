@@ -17,7 +17,7 @@
 
         <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="/auth/login"  class="nav-link px-2 text-secondary">Главная</a></li>
                 <li><a href="/product" class="nav-link px-2 text-white">Каталог</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
             </ul>
@@ -33,61 +33,88 @@
 </header>
 
 <div class="container-xxl">
-<form th:method="POST" th:action="@{/product/search}">
-<fieldset>
-    <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
+
+
+    <details>
+        <summary><b>Поиск и фильтры</b></summary>
+        <div class = "container border rounded">
+            <form th:method="POST" th:action="@{/auth/login/search_main}">
+                <fieldset>
+                    <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
+                    <br>
+                    <label for="search">Поиск по наименованию</label>
+                    <input type="search" id="search" name = "search" th:value="*{value_search}">
+                    <br>
+                    <p>Цена, ₽</p>
+                    <label for="ot">От</label>
+                    <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
+                    <label for="do">До</label>
+                    <input type="text" name="do" id="do" th:value="*{value_price_do}">
+                    <br>
+                    <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+                    <label for="ascending_price">Отсортировать по возрастанию цены</label>
+                    <br>
+                    <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+                    <label for="descending_price">Отсортировать по убыванию цены</label>
+                    <p>Категория товаров: </p>
+                    <select name="category" >
+                        <option value=""> -категория не выбрана-</option>
+                        <option value="furniture"> Мебель</option>
+                        <option  value="appliances">Бытовая техника</option>
+                        <option  value="clothes"> Одежда</option>
+                        <option value="food">Продукты питания</option>
+                        <option value="cosmetics">Косметика</option>
+                        <option  value="package">Упаковка</option>
+                        <option value="decor">Декор</option>
+                        <option value="electronics"> Электроника</option>
+                        <option value="dishes"> Посуда</option>
+                    </select>
+                    <input type="submit" value="Найти" class = "btn btn-primary">
+                </fieldset>
+            </form>
+        </div>
+    </details>
+    <h4>Результат поиска: </h4>
     <br>
-    <label for="search">Поиск по наименованию</label>
-    <input type="search" name="search"  th:value="*{value_search}" id="search">
-    <br>
-    <p>Цена, ₽</p>
-    <label for="ot">От</label>
-    <input type="text" name="ot"  th:value="*{value_price_ot}" id="ot">
-    <label for="do">До</label>
-    <input type="text" name="do"  th:value="*{value_price_do}" id="do">
-    <br>
-    <br>
-    <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
-    <label for="ascending_price">Отсортировать по возрастанию цены</label>
-    <br>
-    <br>
-    <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
-    <label for="descending_price">Отсортировать по убыванию цены</label>
-    <p>Категория товаров: </p>
-    <input type="radio" id="furniture" name="category" value="furniture">
-    <label for="furniture">Мебель</label>
-    <br>
-    <br>
-    <input type="radio" id="appliances" name="category" value="appliances">
-    <label for=appliances>Бытовая техника</label>
-    <br>
-    <br>
-    <input type="radio" id="clothes" name="category" value="clothes">
-    <label for="clothes">Одежда</label>
-    <br>
-    <br>
-    <input type="submit" value="Найти">
-</fieldset>
-</form>
-<h3>Результат: </h3>
-<div th:each="product : ${search_product}">
-    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
-    <br>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-</div>
-<hr>
-<h3>Доступные товары: </h3>
-<div th:each="product : ${products}">
-    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
-    <br>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title"></a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-</div>
+
+    <div class="row row-cols-2 row-cols-md-5 g-5">
+        <div class="col" th:each="products : ${search_product}">
+            <div class="card">
+                <img th:src="'/img/' + ${products.imageList[0].getFileName()}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title"> <a th:href="@{/product/info/{id}(id=${products.getId()})}" th:text="${products.getTitle()}"></a></h5>
+                    <h6 class="card-text" th:text="'Цена: ' + ${products.getPrice()}"></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h3>Каталог товаров: </h3>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col" th:each="product : ${products}">
+            <div class="card">
+                <img th:src="'/img/' + ${product.imageList[0].getFileName()}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title" class="card-text"></a></h5>
+                    <h6 class="card-text" th:text="'Цена: ' + ${product.getPrice()}"></h6><p class="card-text"><small class="text-muted">Для покупки данного товара <a href="/auth/registration"> зарегистрируйтесь</a></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
 
 </div>
+
+
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-muted">© 2022 GiftCompany, Inc</p>
+    <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="/auth/login" class="nav-link px-2 text-muted">Главная</a></li>
+        <li class="nav-item"><a href="/product" class="nav-link px-2 text-muted">Каталог</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">О нас</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted" data-bs-toggle="modal" data-bs-target="#exampleModal">Авторизация</a></li>
+    </ul>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
